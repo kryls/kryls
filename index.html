@@ -5,11 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#020205" />
 
-  <title>KRYLS Protocol — Coming Soon</title>
+  <title>KRYLS Protocol — Automated Non‑Custodial Escrow</title>
   <meta name="description" content="KRYLS is an automated, non-custodial escrow protocol for digital services on EVM networks. Deterministic settlement paths, auditable execution, and rule-based dispute handling." />
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
   <meta name="application-name" content="KRYLS" />
   <link rel="canonical" href="https://kryls.com/" />
+  <!-- Extra SEO / social preview -->
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="author" content="KRYLS" />
+  <meta name="publisher" content="KRYLS" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="alternate" hreflang="en" href="https://kryls.com/" />
+  <link rel="image_src" href="https://kryls.com/kryls.png" />
+  <link rel="preload" as="image" href="/kryls.png" imagesizes="100vw" />
+
 
   <!-- Favicons -->
   <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -21,16 +30,25 @@
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="KRYLS" />
-  <meta property="og:title" content="KRYLS Protocol — Coming Soon" />
-  <meta property="og:description" content="Automated, non-custodial escrow protocol for digital services on EVM networks." />
+  <meta property="og:title" content="KRYLS Protocol — Automated Non‑Custodial Escrow" />
+  <meta property="og:description" content="Automated, non-custodial escrow protocol for digital services on EVM networks. Deterministic settlement paths, auditable execution, and rule-based dispute handling." />
   <meta property="og:url" content="https://kryls.com/" />
   <meta property="og:image" content="https://kryls.com/k.png" />
+  <meta property="og:image" content="https://kryls.com/kryls.png" />
+  <meta property="og:image:secure_url" content="https://kryls.com/kryls.png" />
+  <meta property="og:image:alt" content="KRYLS Protocol — social preview image" />
+  <meta property="og:locale" content="en_US" />
+
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="KRYLS Protocol — Coming Soon" />
-  <meta name="twitter:description" content="Automated, non-custodial escrow protocol for digital services on EVM networks." />
+  <meta name="twitter:title" content="KRYLS Protocol — Automated Non‑Custodial Escrow" />
+  <meta name="twitter:description" content="Automated, non-custodial escrow protocol for digital services on EVM networks. Deterministic settlement paths, auditable execution, and rule-based dispute handling." />
   <meta name="twitter:image" content="https://kryls.com/k.png" />
+  <meta name="twitter:image" content="https://kryls.com/kryls.png" />
+  <meta name="twitter:image:alt" content="KRYLS Protocol — social preview image" />
+  <meta name="twitter:site" content="@krylsglobal" />
+
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -51,6 +69,42 @@
     }]
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "name": "KRYLS",
+        "url": "https://kryls.com/",
+        "inLanguage": "en",
+        "publisher": {
+          "@type": "Organization",
+          "name": "KRYLS",
+          "url": "https://kryls.com/"
+        }
+      },
+      {
+        "@type": "WebPage",
+        "name": "KRYLS Protocol — Automated Non‑Custodial Escrow",
+        "url": "https://kryls.com/",
+        "inLanguage": "en",
+        "primaryImageOfPage": {
+          "@type": "ImageObject",
+          "url": "https://kryls.com/kryls.png",
+          "contentUrl": "https://kryls.com/kryls.png",
+          "caption": "KRYLS Protocol — social preview image"
+        },
+        "about": {
+          "@type": "Organization",
+          "name": "KRYLS",
+          "url": "https://kryls.com/"
+        }
+      }
+    ]
+  }
+  </script>
+
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -481,6 +535,8 @@
       letter-spacing: -0.3px;
       color: rgba(255,255,255,0.92);
     }
+    summary .stitle{margin:0; font-size:1rem;}
+
 
     .card-body {
       padding: 12px 14px 14px;
@@ -790,7 +846,7 @@ animation: spinGlobe 80s linear infinite; z-index: 1; opacity: 0.8;
               <div class="cards-title">Protocol overview (10 sections)</div>
 
               <details class="card glass" id="s1">
-                <summary><span class="num">1.</span><span class="stitle">Operating Model</span></summary>
+                <summary><span class="num">1.</span><h2 class="stitle">Operating Model</h2></summary>
                 <div class="card-body">
                   <p>KRYLS implements on-chain escrow logic for:</p>
                   <ul>
@@ -805,7 +861,7 @@ animation: spinGlobe 80s linear infinite; z-index: 1; opacity: 0.8;
               </details>
 
               <details class="card glass" id="s2">
-                <summary><span class="num">2.</span><span class="stitle">Standardized Settlement Paths</span></summary>
+                <summary><span class="num">2.</span><h2 class="stitle">Standardized Settlement Paths</h2></summary>
                 <div class="card-body">
                   <p>KRYLS defines a set of predefined, deterministic settlement paths:</p>
                   <ul>
@@ -818,7 +874,7 @@ animation: spinGlobe 80s linear infinite; z-index: 1; opacity: 0.8;
               </details>
 
               <details class="card glass" id="s3">
-                <summary><span class="num">3.</span><span class="stitle">Dispute Governance and External Data Inputs</span></summary>
+                <summary><span class="num">3.</span><h2 class="stitle">Dispute Governance and External Data Inputs</h2></summary>
                 <div class="card-body">
                   <p>Disputes follow strict, deterministic flows. External inputs, such as attestations or third-party data, may be submitted to map disputes to outcomes. KRYLS enforces the resulting settlement automatically, without human discretion.</p>
                   <p>Provider sets for external input are configurable via protocol-defined policies and may change according to deterministic operational criteria.</p>
@@ -826,7 +882,7 @@ animation: spinGlobe 80s linear infinite; z-index: 1; opacity: 0.8;
               </details>
 
               <details class="card glass" id="s4">
-                <summary><span class="num">4.</span><span class="stitle">Engagement Modes</span></summary>
+                <summary><span class="num">4.</span><h2 class="stitle">Engagement Modes</h2></summary>
                 <div class="card-body">
                   <p>KRYLS supports common digital service engagement modes:</p>
                   <ul>
@@ -839,7 +895,7 @@ animation: spinGlobe 80s linear infinite; z-index: 1; opacity: 0.8;
               </details>
 
               <details class="card glass" id="s5">
-                <summary><span class="num">5.</span><span class="stitle">Fees and Supported Assets</span></summary>
+                <summary><span class="num">5.</span><h2 class="stitle">Fees and Supported Assets</h2></summary>
                 <div class="card-body">
                   <p>KRYLS applies a 2% protocol fee. Fees are enforced automatically at settlement via rule-based output distribution.</p>
                   <p>Supported assets are ERC-20 tokens. No negotiation or manual adjustment of fees is possible.</p>
@@ -847,7 +903,7 @@ animation: spinGlobe 80s linear infinite; z-index: 1; opacity: 0.8;
               </details>
 
               <details class="card glass" id="s6">
-                <summary><span class="num">6.</span><span class="stitle">Non-Custodial Control and Auditability</span></summary>
+                <summary><span class="num">6.</span><h2 class="stitle">Non-Custodial Control and Auditability</h2></summary>
                 <div class="card-body">
                   <p>Control is enforced exclusively by protocol rules and cryptographic validation.</p>
                   <p>Critical transitions, including funding, approvals, releases, dispute initiation, and final distribution, are explicit and inspectable on-chain. No human can override these outcomes.</p>
@@ -855,7 +911,7 @@ animation: spinGlobe 80s linear infinite; z-index: 1; opacity: 0.8;
               </details>
 
               <details class="card glass" id="s7">
-                <summary><span class="num">7.</span><span class="stitle">Certification</span></summary>
+                <summary><span class="num">7.</span><h2 class="stitle">Certification</h2></summary>
                 <div class="card-body">
                   <p>KRYLS supports optional settlement-linked certification for both parties.</p>
                   <p>Certificates are issued based solely on finalized settlement outcomes. Certification does not imply quality, endorsement, or trustworthiness beyond the protocol-defined result.</p>
@@ -863,14 +919,14 @@ animation: spinGlobe 80s linear infinite; z-index: 1; opacity: 0.8;
               </details>
 
               <details class="card glass" id="s8">
-                <summary><span class="num">8.</span><span class="stitle">Integrity and Abuse Controls</span></summary>
+                <summary><span class="num">8.</span><h2 class="stitle">Integrity and Abuse Controls</h2></summary>
                 <div class="card-body">
                   <p>KRYLS reduces misuse risk by enforcing settlement rules on-chain, constraining dispute handling to predefined outcomes, and providing an auditable event trail for monitoring and post-incident review.</p>
                 </div>
               </details>
 
               <details class="card glass" id="s9">
-                <summary><span class="num">9.</span><span class="stitle">Swap Module</span></summary>
+                <summary><span class="num">9.</span><h2 class="stitle">Swap Module</h2></summary>
                 <div class="card-body">
                   <p>KRYLS includes an optional Swap component for convenience in token conversion.</p>
                   <p>Swap operations use external liquidity sources and are fully deterministic. KRYLS does not control pricing, execution, or provide financial guarantees.</p>
@@ -878,7 +934,7 @@ animation: spinGlobe 80s linear infinite; z-index: 1; opacity: 0.8;
               </details>
 
               <details class="card glass" id="s10">
-                <summary><span class="num">10.</span><span class="stitle">Intended Users</span></summary>
+                <summary><span class="num">10.</span><h2 class="stitle">Intended Users</h2></summary>
                 <div class="card-body">
                   <p>KRYLS is designed for clients, companies, service providers, and teams worldwide that require standardized settlement and dispute handling for digital service engagements.</p>
                   <p>For inquiries, contact: <a class="inline-link" href="mailto:support@kryls.com">support@kryls.com</a></p>
