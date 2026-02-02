@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#020205" />
+  <title>KRYLS Bot</title>
+
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root{
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      --safe-left: env(safe-area-inset-left, 0px);
+      --safe-right: env(safe-area-inset-right, 0px);
+
+      --line: rgba(255,255,255,0.08);
+      --muted: rgba(255,255,255,0.72);
+      --muted2: rgba(255,255,255,0.60);
+    }
+
+    html, body { height: 100%; }
+
+    body{
+      padding-left: var(--safe-left);
+      padding-right: var(--safe-right);
+      padding-top: calc(12px + var(--safe-top));
+      padding-bottom: calc(18px + var(--safe-bottom));
+      overscroll-behavior: none;
+    }
+
+    .bg-glow{
+      width: 110vw;
+      height: 110vw;
+      z-index: -1;
+    }
+
+    .wrap{
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 10px 14px 6px;
+    }
+
+    .title{
+      margin-top: 10px;
+      font-size: clamp(2.05rem, 6vw, 3.1rem);
+      line-height: 1.08;
+      font-weight: 900;
+      letter-spacing: -1.1px;
+    }
+
+    .subtitle{
+      margin-top: 10px;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 75ch;
+    }
+
+    .section{
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    .section h2{
+      font-size: 1.02rem;
+      font-weight: 900;
+      letter-spacing: -0.2px;
+      margin-bottom: 8px;
+    }
+
+    .section p{
+      color: var(--muted2);
+      line-height: 1.65;
+      margin-bottom: 14px;
+    }
+
+    .actions{
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .btn-wide{
+      width: 100%;
+      height: 60px;
+      border-radius: 18px;
+      font-size: 1.03rem;
+      font-weight: 800;
+      justify-content: center;
+      text-decoration: none;
+      user-select: none;
+      touch-action: manipulation;
+    }
+
+    .btn-secondary.btn-wide{
+      background: rgba(0, 240, 255, 0.06);
+      border: 1px solid rgba(0,240,255,0.55);
+    }
+
+    .micro-note{
+      margin-top: 14px;
+      color: rgba(255,255,255,0.50);
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    footer{
+      margin: 18px 12px 12px;
+      padding: 22px 18px;
+      border-radius: 30px;
+    }
+
+    .k-logo{
+      width: 42px;
+      height: 42px;
+      object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 0 10px rgba(0,240,255,0.35));
+      flex: 0 0 auto;
+    }
+
+    .footer-content{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .footer-left{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .footer-right{
+      font-weight: 900;
+      letter-spacing: -0.3px;
+      opacity: 0.92;
+      text-transform: lowercase;
+    }
+
+    .footer-bottom{
+      text-align: center;
+      color: rgba(255, 255, 255, 0.32);
+      font-size: 0.85rem;
+      line-height: 1.8;
+    }
+
+    @media (max-width: 420px){
+      .btn-wide{ height: 58px; border-radius: 16px; }
+      .title{ letter-spacing: -1.0px; }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *{ transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg-glow"></div>
+
+  <main class="wrap" aria-label="KRYLS Bot Web App">
+    <h1 class="title">
+      KRYLS <span class="text-gradient">Bot</span>
+    </h1>
+
+    <p class="subtitle">
+      Quick actions for official KRYLS support and trusted social links.
+      Use only these buttons to avoid impersonation.
+    </p>
+
+    <section class="section" aria-label="Support">
+      <h2>Support</h2>
+      <p>Choose a support channel:</p>
+
+      <div class="actions">
+        <a class="btn btn-primary btn-wide" href="mailto:support@kryls.com" aria-label="Email support@kryls.com">
+          Email: support@kryls.com
+        </a>
+
+        <a class="btn btn-secondary btn-wide" href="https://t.me/krylsadmin" target="_blank" rel="noopener noreferrer" aria-label="Message @krylsadmin">
+          Telegram: @krylsadmin
+        </a>
+      </div>
+
+      <div class="micro-note">
+        Security: KRYLS support will never ask for seed phrases, private keys, or wallet backup codes.
+      </div>
+    </section>
+
+    <section class="section" aria-label="Connect">
+      <h2>Connect</h2>
+      <p>Open official links:</p>
+
+      <div class="actions">
+        <a class="btn btn-primary btn-wide" href="https://kryls.com" target="_blank" rel="noopener noreferrer" aria-label="Open kryls.com">
+          Open kryls.com
+        </a>
+
+        <a class="btn btn-secondary btn-wide" href="https://t.me/krylsglobal" target="_blank" rel="noopener noreferrer" aria-label="Open KRYLS Telegram account">
+          Telegram Account
+        </a>
+
+        <a class="btn btn-secondary btn-wide" href="https://x.com/krylsglobal" target="_blank" rel="noopener noreferrer" aria-label="Open KRYLS X account">
+          X Account
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer aria-label="KRYLS Bot footer">
+    <div class="footer-content">
+      <div class="footer-left">
+        <img src="k.png" alt="KRYLS" class="k-logo" />
+      </div>
+      <div class="footer-right">kryls bot</div>
+    </div>
+
+    <div class="footer-bottom">Copyright © 2026 KRYLS.</div>
+  </footer>
+</body>
+</html>
