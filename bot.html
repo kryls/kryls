@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#020205" />
   <title>KRYLS Bot</title>
 
-  <link rel="stylesheet" href="style.css?v=1.1" />
+  <link rel="stylesheet" href="style.css?v=1.2" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet" />
 
   <style>
@@ -183,11 +183,16 @@
       <p>Choose a support channel:</p>
 
       <div class="actions">
-        <a class="btn btn-primary btn-wide" href="mailto:support@kryls.com" aria-label="Email support@kryls.com">
+        <!-- Email: handled via JS to open outside + copy -->
+        <button class="btn btn-primary btn-wide" id="btnEmail" type="button" aria-label="Email support@kryls.com">
           Email: support@kryls.com
-        </a>
+        </button>
 
-        <a class="btn btn-secondary btn-wide" href="https://t.me/krylsadmin" target="_blank" rel="noopener noreferrer" aria-label="Message @krylsadmin">
+        <a class="btn btn-secondary btn-wide"
+           href="https://t.me/krylsadmin"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Message @krylsadmin">
           Telegram: @krylsadmin
         </a>
       </div>
@@ -202,15 +207,24 @@
       <p>Open official links:</p>
 
       <div class="actions">
-        <a class="btn btn-primary btn-wide" href="https://kryls.com" target="_blank" rel="noopener noreferrer" aria-label="Open kryls.com">
+        <!-- Site: handled via JS to open outside -->
+        <button class="btn btn-primary btn-wide" id="btnSite" type="button" aria-label="Open kryls.com in browser">
           Open kryls.com
-        </a>
+        </button>
 
-        <a class="btn btn-secondary btn-wide" href="https://t.me/krylsglobal" target="_blank" rel="noopener noreferrer" aria-label="Open KRYLS Telegram account">
+        <a class="btn btn-secondary btn-wide"
+           href="https://t.me/krylsglobal"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Open KRYLS Telegram account">
           Telegram Account
         </a>
 
-        <a class="btn btn-secondary btn-wide" href="https://x.com/krylsglobal" target="_blank" rel="noopener noreferrer" aria-label="Open KRYLS X account">
+        <a class="btn btn-secondary btn-wide"
+           href="https://x.com/krylsglobal"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Open KRYLS X account">
           X Account
         </a>
       </div>
@@ -227,5 +241,77 @@
 
     <div class="footer-bottom">Copyright © 2026 KRYLS.</div>
   </footer>
+
+  <!-- Telegram Mini App JS API -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <script>
+    const tg = window.Telegram?.WebApp;
+
+    function openExternal(url) {
+      // Telegram: opens in external browser; can control Instant View [web:17]
+      if (tg?.openLink) tg.openLink(url, { try_instant_view: false });
+      else window.open(url, "_blank", "noopener,noreferrer");
+    }
+
+    async function copyText(text) {
+      try {
+        await navigator.clipboard.writeText(text);
+        return true;
+      } catch {
+        try {
+          const ta = document.createElement("textarea");
+          ta.value = text;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand("copy");
+          ta.remove();
+          return true;
+        } catch {
+          return false;
+        }
+      }
+    }
+
+    // 1) Site button => always open in external browser
+    document.getElementById("btnSite").addEventListener("click", () => {
+      openExternal("https://kryls.com");
+    });
+
+    // 2) Email button => popup: open Gmail in browser OR copy email
+    document.getElementById("btnEmail").addEventListener("click", async () => {
+      const email = "support@kryls.com";
+      const subject = encodeURIComponent("KRYLS Support");
+      const body = encodeURIComponent("Hi KRYLS team,\n\n");
+      const gmailCompose = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}&su=${subject}&body=${body}`;
+
+      // Native popup (up to 3 buttons) [web:17]
+      if (tg?.showPopup) {
+        tg.showPopup(
+          {
+            title: "Email Support",
+            message: email,
+            buttons: [
+              { id: "open_gmail", type: "default", text: "Open Gmail" },
+              { id: "copy", type: "default", text: "Copy email" },
+              { id: "cancel", type: "cancel" }
+            ]
+          },
+          async (btnId) => {
+            if (btnId === "open_gmail") openExternal(gmailCompose);
+            if (btnId === "copy") {
+              const ok = await copyText(email);
+              if (ok && tg?.showPopup) {
+                tg.showPopup({ title: "Copied", message: email, buttons: [{ type: "ok" }] });
+              }
+            }
+          }
+        );
+      } else {
+        // Fallback (not inside Telegram)
+        openExternal(gmailCompose);
+      }
+    });
+  </script>
 </body>
 </html>
