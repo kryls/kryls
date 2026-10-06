@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="k.png" width="110" alt="KRYLS Logo" /> 
+<img src="assets/kryls-mark.png" width="110" alt="KRYLS Logo" /> 
 
 <h1>
 <span style="color:#00f0ff;">KRYLS</span>
