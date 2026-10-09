@@ -1,214 +1,607 @@
 <div align="center">
 
-<img src="assets/kryls-mark.png" width="110" alt="KRYLS Logo" /> 
+<img src="assets/kryls-mark.png" width="130" alt="KRYLS Logo"/>
 
-<h1>
-<span style="color:#00f0ff;">KRYLS</span>
-<span style="color:#bd00ff;">•</span>
-Liquid-Glass Web3 Freelancing MVP
-</h1>
+# <span style="color:#00f0ff;">KRYLS</span> <span style="color:#bd00ff;">•</span>
 
-<p style="max-width:820px; opacity:0.92; line-height:1.7;">
-A Web3 freelancing MVP featuring a neon <b>Liquid-Glass</b> UI, project marketplace, chat-based collaboration, and an on-chain escrow flow on Sepolia (with Kleros / XMTP-ready escrow contract design).
-</p>
+### Automated Non-Custodial Escrow for Digital Services
 
-<p>
-  <img alt="Solidity" src="https://img.shields.io/badge/Solidity-0.8.19-0b1220?style=for-the-badge&logo=solidity&logoColor=white"/>
-  <img alt="Node" src="https://img.shields.io/badge/Node.js-Express-0b1220?style=for-the-badge&logo=node.js&logoColor=00f0ff"/>
-  <img alt="Ethers" src="https://img.shields.io/badge/Ethers.js-5.7.2-0b1220?style=for-the-badge&logo=ethereum&logoColor=bd00ff"/>
-  <img alt="Network" src="https://img.shields.io/badge/Sepolia-Escrow-0b1220?style=for-the-badge&logo=ethereum&logoColor=00f0ff"/>
-  <img alt="Swap" src="https://img.shields.io/badge/Polygon-ParaSwap-0b1220?style=for-the-badge&logo=polygon&logoColor=00ff99"/>
-</p>
+**A deterministic settlement protocol for clients and service providers — built for EVM networks.**
+
+<br/>
+
+<a href="https://kryls.com">
+<img src="https://img.shields.io/badge/🌐%20Website-kryls.com-00f0ff?style=for-the-badge&labelColor=0b1220"/>
+</a>
+<a href="https://github.com/kryls">
+<img src="https://img.shields.io/badge/💻%20GitHub-kryls-ffffff?style=for-the-badge&labelColor=0b1220"/>
+</a>
+
+<br/><br/>
+
+<img src="https://img.shields.io/badge/Solidity-0.8.x-00f0ff?style=flat-square&logo=solidity&logoColor=white"/>
+<img src="https://img.shields.io/badge/Node.js-Express-bd00ff?style=flat-square&logo=node.js&logoColor=white"/>
+<img src="https://img.shields.io/badge/EVM-Sepolia-00f0ff?style=flat-square&logo=ethereum&logoColor=white"/>
+<img src="https://img.shields.io/badge/Escrow-Non--Custodial-00ff99?style=flat-square"/>
+<img src="https://img.shields.io/badge/Status-Pre--Production-bd00ff?style=flat-square"/>
 
 </div>
 
 ---
 
-## What is KRYLS?
+<div align="center">
 
-KRYLS is a Web3 freelancing platform MVP built with plain HTML/CSS/JS on the frontend and a lightweight Node/Express backend using JSON files as a database.  
-The platform supports wallet-based login, role selection (client / freelancer), posting and browsing projects, applying to projects, in-app chat, and an escrow approval flow that creates an on-chain escrow on Sepolia.  
-A dedicated Solidity escrow contract (`KrylsEscrowProduction`) is included, designed for non-custodial payments with milestone support, dispute hooks, and optional XMTP features.
+> **Work can be coordinated off-chain.**
+> **Settlement can be enforced on-chain.**
 
----
-
-## Theme (Liquid Glass + Neon)
-
-The UI design is based on a neon cyan + purple palette and glassmorphism components (blurred translucent panels, glowing borders).  
-Core theme variables (e.g. `--primary: #00f0ff`, `--neon-purple: #bd00ff`) and the glass backdrop styles are defined in `style.css`.  
-Premium mode applies a purple-forward theme by toggling `body.premium`, which swaps the main accent from cyan to purple.
+</div>
 
 ---
 
-## Pages
+## ◈ What is KRYLS?
 
-- **Home** (`index.html` + `script.js`)  
-  Wallet connect, terms modal, role selection, and optional platform stats from the deployed contract.
+**KRYLS is a non-custodial escrow protocol designed for digital services.**
 
-- **Dashboard** (`dashboard.html` + `dashboard.js`)  
-  Profile editing (username/bio/socials), role switching, project creation wizard (including milestone mode), premium purchase flow, and project management for both roles.
+It provides the financial infrastructure required to move a digital engagement from:
 
-- **Market** (`market.html` + `market.js`)  
-  Browse open projects, search/filter by tags, and submit applications (requests).
+`Agreement` → `Funding` → `Execution` → `Approval` → `Settlement`
 
-- **Chat** (`chat.html` + `chat.js`)  
-  Conversation list + messages, request approval (creates escrow on-chain), terms negotiation, delivery submission/acceptance, and dispute workflow (MVP off-chain; contract-ready on-chain).
+without requiring a centralized intermediary to control the escrowed funds.
 
-- **Swap** (`swap.html` + `swap.js`)  
-  A token swap UI **powered by ParaSwap on Polygon**.
+### Core Principles
 
----
-
-## High-level Flow
-
-1. User connects a wallet and a server profile is created/loaded.
-2. User selects a role: `client` or `freelancer`.
-3. Client posts a project; backend stores it (JSON DB) and validates allowed tokens for Sepolia.
-4. Freelancer applies to an open project (creates a request).
-5. In Chat, the client approves a request:
-   - frontend checks token approval and registration
-   - calls `createProject(...)` on the Sepolia escrow contract
-   - backend marks the project as “In Progress” and stores tx + on-chain id (if available)
-6. During the project:
-   - either side can propose new terms
-   - freelancer can submit delivery
-   - owner can accept delivery → project completes and chat auto-deletes after 24 hours (cleanup job)
+|   | Principle         | Description                                                              |
+| - | ----------------- | ------------------------------------------------------------------------ |
+| ◈ | **Non-Custodial** | Funds are governed by protocol logic rather than a centralized platform. |
+| ◆ | **Deterministic** | Settlement follows predefined rules and state transitions.               |
+| ◇ | **Auditable**     | Important financial transitions can be verified on-chain.                |
+| ✦ | **State-Driven**  | Every project follows an explicit lifecycle.                             |
 
 ---
 
-## Networks & On-chain Contracts
+# ⚡ Why KRYLS?
 
-### Sepolia Escrow
+Traditional freelancing platforms place a large amount of trust in a centralized service.
 
-Frontend uses this escrow contract address:
-- `0xFd2F7895c9D851288e8Afb3e86fb9Bd4A9153BBb`
+KRYLS separates the application layer from the financial settlement layer.
 
-Supported ERC-20 tokens (Sepolia):
-- USDT: `0xaA8E23Fb1079EA71e0a56F48a2aA51851D8433D0`
-- USDC: `0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238`
-- DAI:  `0xFF34B3d4Aee8ddCd6F9AFFFB6Fe49bD371b8a357`
+```text
+                 KRYLS
+                   │
+        ┌──────────┴──────────┐
+        │                     │
+   APPLICATION             PROTOCOL
+        │                     │
+   Projects              Escrow
+   Profiles              Settlement
+   Chat                  Disputes
+   Marketplace           Governance
+        │                     │
+        └──────────┬──────────┘
+                   │
+                EVM
+```
 
-> The backend also enforces this token allowlist when posting projects.
+The application coordinates the relationship.
 
-### Polygon Swap
-
-The Swap page is designed for Polygon (`chainId = 137`) and uses ParaSwap API endpoints (`apiv5.paraswap.io`) to quote/build swap transactions.
-
----
-
-## Backend (Node/Express)
-
-The backend (`server.js`) serves the static site and exposes a REST API under `/api`.  
-It stores data in `db/*.json` files (profiles/projects/requests/messages/logs/terms/deliveries/disputes/oracles).  
-Presence (“online/offline”) is tracked using an in-memory TTL map.
-
-### Premium (one-time)
-
-Premium is activated through `POST /api/premium/activate`.  
-In the dashboard, the premium purchase flow sends an ERC-20 transfer (default: 30 units) and then calls the activation endpoint.  
-Premium also enables “Pin project” with a cooldown of **1 pin / 24h**, and longer project lifetime (15 days vs 7 days).
-
-> Important: `PREMIUMTREASURY` in `dashboard.js` is currently a placeholder. Replace it before using real funds.
-
-### Auto Cleanup
-
-A scheduled cleanup deletes chats/requests/terms/deliveries/disputes 24 hours after a project is completed.
+The protocol enforces the financial rules.
 
 ---
 
-## Admin Panel
+# ◇ How It Works
 
-Admin panel routes are protected with Basic Auth and are served at:
-- `/admin`
+### `01` Create
 
-Environment variables:
-- `ADMINUSER` (default: `admin`)
-- `ADMINPASS` (default: `kryls12345`)
+A client creates a digital-service project with its requirements, budget, asset, and engagement model.
 
-Admin features include:
-- view and edit users (role/username/bio/socials/premium)
-- view projects, requests, messages, and logs
+↓
 
----
+### `02` Connect
 
-## Smart Contract: `KrylsEscrowProduction` (Solidity)
+Freelancers discover projects and submit applications.
 
-The escrow contract is designed as a non-custodial system for digital services with:
-- full-payment and milestone payment types
-- token allowlist (USDT/USDC/DAI pre-allowed)
-- client registration fee (token decimals based)
-- optional dispute lifecycle using Kleros ERC-792 (createDispute + `rule(...)` callback)
-- configurable arbitrator allowlist and timelocked admin updates
-- optional XMTP toggles and on-chain message event patterns
+↓
 
-This repo includes the full contract source in `krylsEscrowPro.sol`.
+### `03` Agree
 
----
+The parties communicate, negotiate terms, and establish the conditions of the engagement.
 
-## API (Quick Map)
+↓
 
-Base URL: `/api`
+### `04` Fund
 
-### Auth & Profile
-- `POST /api/login`
-- `POST /api/set-role`
-- `GET  /api/profile/:wallet`
-- `POST /api/update-profile` (alias: `POST /api/profile/update`)
+The client commits the required funds to the on-chain escrow.
 
-### Presence
-- `POST /api/presence/ping`
-- `GET  /api/presence/status?wallets=0x..,0x..`
+↓
 
-### Projects
-- `POST /api/post-project`
-- `GET  /api/all-open-projects`
-- `GET  /api/project/:id`
-- `GET  /api/client-projects/:wallet`
-- `GET  /api/freelancer-active/:wallet`
-- `POST /api/cancel-project`
+### `05` Execute
 
-### Requests
-- `POST /api/request-project`
-- `GET  /api/requests/incoming/:wallet`
-- `GET  /api/requests/mine/:wallet`
-- `POST /api/requests/confirm`
-- `POST /api/requests/reject`
-- `POST /api/requests/hide`
+The freelancer performs the work and submits the result.
 
-### Terms / Delivery / Disputes (MVP Off-chain)
-- `GET  /api/terms/pending/:projectId`
-- `POST /api/terms/propose`
-- `POST /api/terms/respond`
-- `GET  /api/delivery/latest/:projectId`
-- `POST /api/delivery/submit`
-- `POST /api/delivery/accept`
-- `POST /api/delivery/dispute`
-- `GET  /api/dispute/latest/:projectId`
-- `POST /api/dispute/resolve`
-- `GET  /api/oracles`
+↓
 
-### Chat
-- `POST /api/send-message`
-- `GET  /api/messages/:wallet`
+### `06` Settle
 
-### Admin (Protected)
-- `GET  /api/admin/users`
-- `POST /api/admin/users/update`
-- `GET  /api/admin/projects`
-- `GET  /api/admin/requests`
-- `GET  /api/admin/messages?limit=...`
-- `GET  /api/admin/logs?limit=...`
+Once the required conditions are satisfied, the protocol executes the corresponding settlement.
+
+↓
+
+### `07` Resolve
+
+If something goes wrong, the project can enter a structured dispute lifecycle instead of allowing unrestricted movement of funds.
 
 ---
 
-## Local Setup
+# 💠 Engagement Models
 
-### Prerequisites
-- Node.js (recommended 18+)
-- A browser wallet (MetaMask/Trust Wallet) for Sepolia/Polygon actions
+KRYLS is designed to support multiple forms of digital work.
 
-### Install & Run
-```bash
-npm init -y
-npm i express cors
-node server.js
+| Model               | Description                                                  |
+| ------------------- | ------------------------------------------------------------ |
+| 💰 **Full Payment** | One settlement after the engagement is completed.            |
+| 🧩 **Milestone**    | Divide a project into multiple independently settled stages. |
+| ⏱️ **Hourly**       | Support time-based digital-service engagements.              |
+
+This allows the protocol to accommodate both small one-off tasks and larger multi-stage projects.
+
+---
+
+# 🔐 Non-Custodial Architecture
+
+The core philosophy of KRYLS is simple:
+
+> **The platform should coordinate the work — not own the money.**
+
+Critical financial operations are represented by explicit protocol logic.
+
+```text
+Client
+  │
+  │ Fund
+  ▼
+┌───────────────────────┐
+│     KRYLS ESCROW      │
+│                       │
+│  State Machine        │
+│  Accounting           │
+│  Settlement           │
+│  Disputes             │
+│  Emergency Controls   │
+└───────────┬───────────┘
+            │
+            │ Settlement
+            ▼
+       Freelancer
+```
+
+---
+
+# 🧠 Smart Contract Architecture
+
+The escrow engine is built around several independent security boundaries.
+
+### 💰 Financial Accounting
+
+Tracks deposited, settled, remaining, and locked funds while preserving their relationships throughout the project lifecycle.
+
+### 🔄 State Machine
+
+Projects move through explicit states such as:
+
+`Created → Funded → Active → Completed`
+
+with additional paths for:
+
+`Cancelled · Expired · Disputed · Resolved · Emergency Recovery`
+
+Invalid transitions are rejected by the protocol.
+
+### 🧱 Project Isolation
+
+Each project is treated as an independent financial unit.
+
+A settlement or dispute belonging to one project should not unexpectedly affect another.
+
+### 🛡️ Access Control
+
+Sensitive operations are separated from normal user actions through explicit authorization and governance mechanisms.
+
+### 🚨 Emergency Controls
+
+The architecture includes pause and recovery mechanisms for abnormal situations while protecting restricted states.
+
+### ⚖️ Dispute Layer
+
+Dispute handling is implemented as a dedicated subsystem with its own lifecycle, validation, and accounting boundaries.
+
+---
+
+# 🛡️ Security Engineering
+
+Security is not treated as a single test.
+
+KRYLS has been tested across multiple categories of normal, abnormal, adversarial, and high-load behavior.
+
+### Tested Areas
+
+```text
+✓ Accounting Invariants
+✓ State Transitions
+✓ Project Isolation
+✓ Reentrancy
+✓ Malicious Callbacks
+✓ Token Behavior
+✓ Access Control
+✓ Governance
+✓ Dispute Resolution
+✓ Emergency Recovery
+✓ Failed External Calls
+✓ Multi-Project Scenarios
+✓ Stress Testing
+✓ Gas Behavior
+✓ Adversarial Attack Scenarios
+✓ Integration Testing
+```
+
+The testing approach includes:
+
+**unit · negative · randomized · persistence · adversarial · reentrancy · integration · recovery · stress · security**
+
+The objective is not merely to prove that the happy path works.
+
+It is to test whether the protocol continues to preserve its critical invariants **when the environment behaves unexpectedly**.
+
+---
+
+# 📊 Accounting Invariants
+
+One of the most important properties of a financial protocol is maintaining consistency between its internal state and actual funds.
+
+KRYLS testing focuses on relationships between:
+
+```text
+Deposited
+    │
+    ├──────────────► Settled
+    │
+    ├──────────────► Locked
+    │
+    └──────────────► Remaining
+```
+
+The system is tested across failures, disputes, multiple projects, reentrancy scenarios, and adversarial behavior.
+
+The goal is simple:
+
+> **A failed operation should not leave the financial state half-changed.**
+
+---
+
+# 🪙 Token Safety
+
+KRYLS deliberately constrains the assets accepted by the escrow rather than claiming compatibility with every possible ERC-20 implementation.
+
+Testing has considered abnormal token behaviors including:
+
+* incorrect return values
+* missing return values
+* transfer failures
+* transfer taxes
+* rebasing behavior
+* blacklist behavior
+* unusual decimal configurations
+* malicious token interactions
+
+This reflects a core principle:
+
+> **Explicit compatibility boundaries are safer than unlimited compatibility claims.**
+
+---
+
+# ⚖️ Dispute Resolution
+
+Disputes are a first-class part of the KRYLS architecture.
+
+The system is designed around a structured dispute lifecycle:
+
+```text
+Project
+   │
+   ▼
+Dispute Created
+   │
+   ▼
+Validation
+   │
+   ▼
+Arbitration / Resolution
+   │
+   ▼
+Protocol Outcome
+   │
+   ▼
+Settlement
+```
+
+The architecture includes support for:
+
+* dispute creation
+* dispute fees
+* external dispute identifiers
+* project-to-dispute binding
+* arbitrator validation
+* resolution outcomes
+* protection against repeated resolution
+* dispute isolation
+* preservation of locked funds
+
+The design is also prepared for **Kleros-compatible dispute flows**.
+
+---
+
+# 🏛️ Governance & Emergency Response
+
+KRYLS treats governance and emergency operations as separate security boundaries.
+
+The architecture includes:
+
+| Mechanism              | Purpose                             |
+| ---------------------- | ----------------------------------- |
+| 🔑 Access Control      | Restrict sensitive operations       |
+| ⏳ Timelocks            | Make critical changes deliberate    |
+| 🛑 Emergency Pause     | Stop restricted operations          |
+| 🔄 Recovery            | Handle exceptional situations       |
+| 🛡️ Dispute Protection | Prevent inappropriate fund recovery |
+
+The goal is to make sensitive changes **controlled, observable, and deliberate**.
+
+---
+
+# ⛽ Performance & Gas
+
+The escrow system has also been tested under high-load scenarios.
+
+Testing has included:
+
+* tens of thousands of repeated calls
+* long-running execution
+* hundreds of projects
+* stress scenarios involving thousands of projects
+* simultaneous settlement, cancellation, expiration, and dispute operations
+
+### Reported Test-Environment Measurements
+
+| Operation           | Approx. Gas |
+| ------------------- | ----------: |
+| Project Creation    |     `~400k` |
+| Full Settlement     |     `~114k` |
+| Dispute             |     `~119k` |
+| Cancellation        |      `~48k` |
+| Contract Deployment |       `~4M` |
+
+> These are test-environment measurements, not guaranteed production costs. Actual network fees depend on the target chain, gas price, transaction path, and network conditions.
+
+---
+
+# 🌐 KRYLS Application
+
+The protocol is surrounded by a Web3 application designed to make the underlying infrastructure usable.
+
+### 🏠 Home
+
+Wallet connection, onboarding, role selection, terms, and protocol information.
+
+### 📊 Dashboard
+
+Profiles, roles, project creation, milestone configuration, and project management.
+
+### 🛒 Marketplace
+
+Browse projects, search opportunities, filter results, and submit applications.
+
+### 💬 Chat
+
+Communication, request approval, terms negotiation, delivery submission, acceptance, and dispute initiation.
+
+### 🔄 Swap
+
+Optional token-swap functionality designed for Polygon.
+
+---
+
+# 🏗️ Architecture Overview
+
+```text
+┌────────────────────────────────────────────┐
+│                KRYLS APP                   │
+│                                            │
+│  Home · Dashboard · Market · Chat · Swap  │
+└──────────────────────┬─────────────────────┘
+                       │
+                       ▼
+┌────────────────────────────────────────────┐
+│              APPLICATION API               │
+│                                            │
+│  Projects · Profiles · Requests · Messages │
+│  Terms · Deliveries · Application State    │
+└──────────────────────┬─────────────────────┘
+                       │
+                       ▼
+┌────────────────────────────────────────────┐
+│             KRYLS ESCROW CORE              │
+│                                            │
+│  Accounting · State Machine · Settlement  │
+│  Disputes · Governance · Recovery         │
+└──────────────────────┬─────────────────────┘
+                       │
+                       ▼
+┌────────────────────────────────────────────┐
+│                 EVM                        │
+│                                            │
+│             Sepolia / Polygon              │
+└────────────────────────────────────────────┘
+```
+
+---
+
+# 🧰 Technology Stack
+
+<div align="center">
+
+| Layer                      | Technology              |
+| -------------------------- | ----------------------- |
+| **Frontend**               | HTML · CSS · JavaScript |
+| **Backend**                | Node.js · Express       |
+| **Smart Contracts**        | Solidity                |
+| **Blockchain Interaction** | Ethers.js               |
+| **Settlement**             | EVM                     |
+| **Payment Assets**         | ERC-20                  |
+| **Dispute Architecture**   | Kleros-compatible       |
+| **Messaging Architecture** | XMTP-ready              |
+| **Swap Infrastructure**    | ParaSwap · Polygon      |
+
+</div>
+
+---
+
+# 🌍 Current Deployment
+
+### Ethereum Sepolia
+
+**Escrow Contract**
+
+```text
+0xFd2F7895c9D851288e8Afb3e86fb9Bd4A9153BBb
+```
+
+### Supported Test Assets
+
+`USDT` · `USDC` · `DAI`
+
+### Polygon
+
+The Swap component is designed for Polygon using external liquidity infrastructure.
+
+> Current deployments are intended for development and testing unless explicitly stated otherwise.
+
+---
+
+# 🧪 Testing Philosophy
+
+KRYLS follows a layered testing philosophy.
+
+```text
+                    ┌───────────────┐
+                    │ Final Security│
+                    └───────┬───────┘
+                            │
+                 ┌──────────▼──────────┐
+                 │ Integration / Stress│
+                 └──────────┬──────────┘
+                            │
+                ┌───────────▼───────────┐
+                │ Adversarial / Recovery│
+                └───────────┬───────────┘
+                            │
+                   ┌────────▼────────┐
+                   │ Negative / Fuzz │
+                   └────────┬────────┘
+                            │
+                       ┌────▼────┐
+                       │  Unit   │
+                       └─────────┘
+```
+
+This layered approach is intended to test both individual functions and the behavior of the **system as a whole**.
+
+---
+
+# 🚀 Project Status
+
+KRYLS has progressed beyond a basic escrow prototype.
+
+The current project includes:
+
+* ◈ Web3 application layer
+* ◈ Wallet-based identity
+* ◈ Freelancing marketplace
+* ◈ Project lifecycle management
+* ◈ Client / freelancer roles
+* ◈ Communication layer
+* ◈ On-chain escrow
+* ◈ Milestone architecture
+* ◈ Dispute architecture
+* ◈ Governance controls
+* ◈ Emergency mechanisms
+* ◈ Extensive smart-contract testing
+
+### Current Direction
+
+**From tested protocol → toward production-ready infrastructure.**
+
+---
+
+# ⚠️ Security Disclaimer
+
+The current testing results provide strong evidence that the implementation preserves its intended behavior across a broad range of tested scenarios.
+
+However:
+
+> **Passing tests are not a security audit.**
+
+Testing cannot prove the absence of unknown vulnerabilities, and it does not replace:
+
+* independent security audits
+* formal verification
+* production monitoring
+* economic analysis
+* real-world adversarial review
+
+KRYLS therefore treats its current results as **evidence of engineering maturity and tested behavior — not a guarantee of absolute security.**
+
+---
+
+# 🔮 Vision
+
+KRYLS is not simply trying to build another freelancing website.
+
+The larger goal is to create infrastructure for **programmable digital work agreements**.
+
+A future where the financial lifecycle of digital work can be expressed as:
+
+```text
+AGREEMENT
+    ↓
+FUNDING
+    ↓
+EXECUTION
+    ↓
+APPROVAL
+    ↓
+SETTLEMENT
+```
+
+with milestones, time conditions, disputes, and exceptional situations handled through explicit protocol rules.
+
+---
+
+<div align="center">
+
+# KRYLS
+
+### **Work can be coordinated off-chain.**
+
+### **Settlement can be enforced on-chain.**
+
+<br/>
+
+<a href="https://kryls.com">
+<img src="https://img.shields.io/badge/🌐%20kryls.com-00f0ff?style=for-the-badge&labelColor=0b1220"/>
+</a>
+
+<br/><br/>
+
+**Built for digital work.
+Designed for deterministic settlement.**
+
+</div>
